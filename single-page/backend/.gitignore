@@ -1,5 +1,4 @@
-.env
-nodemodules# Environment files
+# Environment files
 .env
 .env.*
 

@@ -2,6 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+console.log(BACKEND_URL);
+
+console.log("BACKEND_URL =", BACKEND_URL);
+
+
+
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,22 +18,17 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await axios.post("http://localhost:7000/api/auth/register", {
-        name,
-        email,
-        password,
-      });
+  try {
+      const res = await axios.post(
+        `${BACKEND_URL}/api/auth/register`,
+        { name, email, password }
+      );
 
-      // ✅ THIS LINE IS KEY
       setMessage(res.data.message);
-
-      // Clear form
       setName("");
       setEmail("");
       setPassword("");
     } catch (error) {
-      // ✅ Show backend error message
       setMessage(error.response?.data?.message || "Something went wrong");
     }
   };
