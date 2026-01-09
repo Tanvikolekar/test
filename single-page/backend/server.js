@@ -1,32 +1,20 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import authRoutes from "./routes/authRoutes.js"; 
+import authRoutes from "./routes/authRoutes.js";
 import connectDB from "./config/db.js";
-import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://mern-frontend-7nf2.onrender.com"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
-  })
-);
-
-
-// Middleware
+// ✅ SIMPLE & WORKING CORS (PRODUCTION SAFE FOR NOW)
 app.use(cors());
+
+// Body parser
 app.use(express.json());
 
-//connect DB
+// Connect DB
 connectDB();
 
 // Routes
@@ -37,9 +25,7 @@ app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
-// Server
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
